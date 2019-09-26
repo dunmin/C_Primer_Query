@@ -24,3 +24,12 @@ v2顶层const,  p2底层const, p3是顶层const+底层const, r2是底层const
 (d) p1 = p3;    不合法, 底层const不能赋值给非const
 (e) p2 = p3;    合法，都有底层const
 ```
+
+## 练习 2.32
+```
+int null = 0,*p = null;
+```
+错误，不能把整形直接赋值给指针，即便刚好等于0也不行
+```
+int null = 0,*p = 0;
+```

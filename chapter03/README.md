@@ -20,4 +20,4 @@
 (g) vector<string> v7{ 10, "hi" };  // size:10, value:"hi"
 ```
 
-## [练习3.17](exercise_3.17.cbp)
+## [练习3.17](exercise_3.17.cpp)

@@ -23,3 +23,5 @@
 ## [练习 3.17](exercise_3.17.cpp)
 
 ## [练习 3.22](exercise_3.22.cpp)
+
+## [练习 3.24](exercise_3.24.cpp)

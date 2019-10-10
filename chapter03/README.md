@@ -24,6 +24,8 @@
 
 ## [练习 3.22](exercise_3.22.cpp)
 
+## [练习 3.24](exercise_3.24.cpp)
+
 ## 练习 3.26
 > important
 
@@ -34,7 +36,5 @@
 ## [练习 3.44](exercise_3.44.cpp)
 
 ## [练习 3.45](exercise_3.45.cpp)
-
-## [练习 3.24](exercise_3.24.cpp)
 
 

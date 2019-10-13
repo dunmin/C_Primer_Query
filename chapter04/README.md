@@ -178,3 +178,16 @@ if (i = 1024)           // 总是为true, 本意应该是i==1024
 (b) ival++ && ival      // 判断ival和ival+1是否都非空，因为&&左侧先计算后计算右侧，因此和c一样出现未定义行为的情况
 (c) vec[ival++] <= vec[ival] // 出现错误，因为<=两边的计算顺序不确定，应该修改为vec[ival] <= vec[ival+1]
 ```
+
+## 练习 4.20
+> 假设```iter```的类型是 ```vector<string>::iterator```, 说明下面的表达式是否合法。如果合法，表达式的含义是什么？如果不合法，错在何处？
+``` cpp
+(a) *iter++;                // 返回iter所指对象的值，之后将iter加1
+(b) (*iter)++;              // 将iter所指对象的值加1之后返回(但是不合法,因为string没有++操作)
+(c) *iter.empty();          // error: 先执行点运算符，但是由于指针没有成员，出现错误
+(d) iter->empty();          // 返回iter所指对象是否为空
+(e) ++*iter;                // 将iter所指对象的值加1之后返回(但是不合法,因为string没有++操作)
+(f) iter++->empty();        // important: 判断iter是否为空之后将iter加1
+```
+
+## [练习 4.21](exercise_4.21.cpp)

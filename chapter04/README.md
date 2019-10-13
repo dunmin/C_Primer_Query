@@ -190,4 +190,33 @@ if (i = 1024)           // 总是为true, 本意应该是i==1024
 (f) iter++->empty();        // important: 判断iter是否为空之后将iter加1
 ```
 
-## [练习 4.21](exercise_4.21.cpp)
+## [练习 4.21](exercise_4.21)
+
+## 练习 4.22
+> 本节的示例程序将成绩划分为high pass、pass 和 fial 三种，扩展该程序使其进一步将 60 分到 75 分之间的成绩设定为 low pass。要求程序包含两个版本：一个版本只使用条件运算符；另一个版本使用1个或多个if语句。哪个版本的程序更容易理解呢？为什么？
+
+```
+使用if-else的比较好理解，因为当条件运算符嵌套多层之后，代码可读性急剧下降，而if-else则比较清晰
+```
+
+## 练习 4.23
+因为运算符的优先级问题，下面这条表达式无法通过编译。根据4.12节中的表指出它的问题在哪里？应该如何修改？
+```
+string s = "word";
+string pl = s + s[s.size() - 1] == 's' ? "" : "s" ;
+```
+
+加法优先级较高，应该改为
+``` cpp
+string pl = s + (s[s.size() - 1] == 's' ? "" : "s") ;
+```
+
+## 练习 4.24
+> 本节的示例程序将成绩划分为 high pass、pass、和fail三种，它的依据是条件运算符满足右结合律。假如条件运算符满足的是左结合律，求值的过程将是怎样的？
+
+``` cpp
+finalgrade = (grade>90)?"high pass":(grade<60)?"fail":"pass";
+如果满足的是左结合律，那么将会先计算(grade>90)，如果成立则返回"high pass"不成立在返回(grade<60)，返回的值作为?"fail":"pass";的条件，从而返回"fail"或者"pass"给finalgrade
+即相当于
+finalgrade = ((grade > 90) ? "high pass" : (grade < 60)) ? "fail" : "pass";
+```

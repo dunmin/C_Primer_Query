@@ -278,3 +278,88 @@ cout << sizeof(p)/sizeof(*p) << endl;           // 结果为4/4 = 1 [impotant]
 (c) (sizeof a) < b     
 (d) sizeof (f())  
 ```
+
+## 练习 4.31
+> 本节的程序使用了前置版本的递增运算符和递减运算符，解释为什么要用前置版本而不用后置版本。要想使用后置版本的递增递减运算符需要做哪些改动？使用后置版本重写本节的程序。
+
+```
+根据c++ primer page132-Ref, 后置做法需要保存一个递增前的值作为拷贝，加大了开销，因此可以使用前置也可以使用后置的情况下，应使用前置。
+后置重写则将全部前置的地方换成后置，无需其他改动
+```
+
+## 练习 4.32
+> 解释下面这个循环的含义。
+```
+constexpr int size = 5;
+int ia[size] = { 1, 2, 3, 4, 5 };
+for (int *ptr = ia, ix = 0;
+    ix != size && ptr != ia+size;
+    ++ix, ++ptr) { /* ... */ }
+```
+
+```cpp
+遍历数组ia,同时使用其下标和对应指针
+```
+
+## 练习 4.33 - important
+> 根据4.12节中的表说明下面这条表达式的含义。
+
+```
+someValue ? ++x, ++y : --x, --y
+```
+
+``` cpp
+,优先级最低，则原式实际组合顺序 (someValue ? ++x, ++y : --x), --y
+即someValue为true,则递增x,y,否则递减x。结束之后递减y并返回递减后的值
+```
+
+## 练习 4.34
+> 根据本节给出的变量定义，说明在下面的表达式中奖发生什么样的类型转换：
+
+``` cpp
+(a) if (fval)                       // fval将转换成bool
+(b) dval = fval + ival;             // ival将转换成float,与fval相加之后转换成double
+(c) dval + ival * cval;             // cval将提升成int，之后和ival相加，再转成double
+```
+
+## 练习 4.35
+> 假设有如下的定义,请回答在下面的表达式中发生了隐式类型转换吗？如果有，指出来。
+```
+char cval;
+int ival;
+unsigned int ui;
+float fval;
+double dval;
+```
+
+``` cpp
+(a) cval = 'a' + 3;                             // 'a'提升成int,之后加3后转成char
+(b) fval = ui - ival * 1.0;                     // ival转成double,之后ui转成double,之后一起转成float
+(c) dval = ui * fval;                           // ui转成float,相乘后转换成double
+(d) cval = ival + fval + dval;          // ival转成float,与fval相加后转成double,与dval相加后转成char
+```
+
+## 练习 4.36
+> 假设 i 是int类型，d 是double类型，书写表达式 i*=d 使其执行整数类型的乘法而非浮点类型的乘法。
+
+``` cpp
+i *= static_cast<int>(d);
+```
+
+## 练习 4.37 -important
+> 用命名的强制类型转换改写下列旧式的转换语句。
+```
+int i; double d; const string *ps; char *pc; void *pv;
+(a) pv = (void*)ps;
+(b) i = int(*pc);
+(c) pv = &d;
+(d) pc = (char*)pv;
+```
+
+``` cpp
+int i; double d; const string *ps; char *pc; void *pv;
+(a) pv = static_cast<void*>(const_cast<string*>(ps));
+(b) i = static_cast<int>(*pc);
+(c) pv = static_cast<void*>(&d);
+(d) pc = static_cast<void*>(pv);
+```

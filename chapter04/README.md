@@ -363,3 +363,10 @@ int i; double d; const string *ps; char *pc; void *pv;
 (c) pv = static_cast<void*>(&d);
 (d) pc = static_cast<void*>(pv);
 ```
+
+## 练习 4.38
+> 说明下面这条表达式的含义。
+
+``` cpp
+double slope = static_cast<double>(j/i);    // 将j/i的结果值转换为 double，然后赋值给slope
+```

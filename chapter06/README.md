@@ -85,3 +85,115 @@ void f(&T) 是引用传递
 (e) 如果s是普通引用对程序没有影响，但是如果无意中修改了s的值不会报错，难以发现
 (f) 如果occurs是常量引用那么在函数中修改occurs会产生错误
 ```
+
+## 练习 6.16
+> 下面的这个函数虽然合法，但是不算特别有用。指出它的局限性并设法改善。
+```
+bool is_empty(string& s) { return s.empty(); }
+```
+
+
+``` cpp
+//s不会再函数中修改，应该定义成const
+bool is_empty(const string& s) { return s.empty(); }
+```
+
+## 练习 6.17
+> 编写一个函数，判断string对象中是否含有大写字母。编写另一个函数，把string对象全部改写成小写形式。在这两个函数中你使用的形参类型相同吗？为什么？
+
+``` cpp
+不同，前一个应该用const string&而后一个是string&
+```
+
+## 练习 6.18
+> 为下面的函数编写函数声明，从给定的名字中推测函数具备的功能。
++ 名为 compare 的函数，返回布尔值，两个参数都是 matrix 类的引用。
++ 名为 change_val 的函数，返回vector的迭代器，有两个参数：一个是int，另一个是vector的迭代器。
+
+``` cpp
+(a) bool compare(const matrix&,const matrix&);
+(b) vector<int>::iterator change_val(int,vector<int>::iterator);
+```
+
+## 练习 6.19
+> 假定有如下声明，判断哪个调用合法、哪个调用不合法。对于不合法的函数调用，说明原因。
+```
+double calc(double);
+int count(const string &, char);
+int sum(vector<int>::iterator, vector<int>::iterator, int);
+vector<int> vec(10);
+```
+
+``` cpp
+(a) calc(23.4, 55.1);               // error: 参数超过限制
+(b) count("abcda",'a');             // ok
+(c) calc(66);                       // ok,int可以转double
+(d) sum(vec.begin(), vec.end(), 3.8);   // ok, 但是3.8会被截成3
+```
+
+## 练习 6.20
+> 引用形参什么时候应该是常量引用？如果形参应该是常量引用，而我们将其设为了普通引用，会发生什么情况？
+
+``` cpp
+(a) 当在函数中不修改形参的时候
+(b) 那么常量实参将无法作用于普通引用形参
+```
+
+## [练习 6.21](exercise_6.21.cpp)
+> 编写一个函数，令其接受两个参数：一个是int型的数，另一个是int指针。函数比较int的值和指针所指的值，返回较大的那个。在该函数中指针的类型应该是什么？
+
+``` cpp
+指针类型应该是const int *,因为函数中没有修改，同时保证传入的参数不受到限制
+```
+
+## [练习 6.22](exercise_6.22.cpp) - important
+
+``` cpp
+void swap_pointer(int *&var1,int *&var2)                // 改成int *var1,int *var2是没有效果的
+{                                                       // 形参必须是指针的引用
+    swap(var1,var2);
+}
+int *p1 = &a,*p2 = &b;                                   // swap_pointer(&a,&b);也不行，因为不能   
+swap_pointer(p1,p2);                                     // &a是const不能修改
+```
+
+
+## 练习 6.24
+> 描述下面这个函数的行为。如果代码中存在问题，请指出并改正。
+```
+void print(const int ia[10])
+{
+	for (size_t i = 0; i != 10; ++i)
+		cout << ia[i] << endl;
+}
+```
+
+``` cpp
+// 数组不能作为形参传递
+void print(const int （&ia)[10])
+{
+	for (size_t i = 0; i != 10; ++i)
+		cout << ia[i] << endl;
+}
+```
+
+## [练习 6.25](exercise_6.25.cpp)
+
+## [练习 6.26](exercise_6.26.cpp)
+题目要求与**6.25**相同，但是这里的写法更优雅
+
+## [练习 6.27](exercise_6.27.cpp)
+
+## 练习 6.28
+> 在error_msg函数的第二个版本中包含ErrCode类型的参数，其中循环内的elem是什么类型
+
+``` cpp
+const string &
+```
+
+## 练习 6.29 -important
+> 在范围for循环中使用initializer_list对象时，应该将循环控制变量声明成引用类型吗？为什么？
+
+``` cpp
+应该使用常量引用类型。initializer_list 对象中的元素都是常量，我们无法修改initializer_list 对象中的元素的值。
+```

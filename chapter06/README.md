@@ -197,3 +197,66 @@ const string &
 ``` cpp
 应该使用常量引用类型。initializer_list 对象中的元素都是常量，我们无法修改initializer_list 对象中的元素的值。
 ```
+
+## 练习 6.30
+> 编译第200页的str_subrange函数，看看你的编译器是如何处理函数中的错误的。
+
+``` cpp
+Gcc中编译不会出错但是运行可能会出现错误
+```
+
+## 练习 6.31 -important
+> 什么情况下返回的引用无效？什么情况下返回常量的引用无效？
+
+``` cpp
+当返回的是对局部变量的引用时无效，当希望修改返回的变量时，返回常量的引用无效
+```
+
+## 练习 6.32
+> 下面的函数合法吗？如果合法，说明其功能；如果不合法，修改其中的错误并解释原因。
+```
+int &get(int *array, int index) { return array[index]; }
+int main()
+{
+    int ia[10];
+    for (int i = 0; i != 10; ++i)
+        get(ia, i) = i;
+}
+```
+
+``` cpp
+合法，引用返回的是左值
+```
+
+## [练习 6.33](exercise_6.33.cpp)
+
+## 练习 6.34
+> 如果factorial 函数的停止条件如下所示，将发生什么？
+```
+if (val != 0)
+```
+
+``` cpp
+结果一样
+```
+
+## 练习 6.35
+> 在调用factorial 函数时，为什么我们传入的值是 val-1 而非 val--？
+
+```
+那么传给下一层函数的就是val而不是val-1了，会陷入无限的递归调用
+```
+
+## [练习 6.36](exercise_6.36.cpp)
+
+## [练习 6.37](exercise_6.37.cpp) -important
+
+## 练习 6.38
+> 修改arrPtr函数，使其返回数组的引用。
+
+``` cpp
+decltype(odd) &arrPtr(int i)
+{
+    return (i%2)?odd:even;
+} 
+```

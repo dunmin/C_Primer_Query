@@ -260,3 +260,64 @@ decltype(odd) &arrPtr(int i)
     return (i%2)?odd:even;
 } 
 ```
+
+## 练习 6.39
+> 说明在下面的每组声明中第二条语句是何含义。如果有非法的声明，请指出来。
+
+``` cpp
+(a) int calc(int, int);
+	int calc(const int, const int);         // 错误，顶层const不能作为重载依据
+(b) int get();
+	double get();                           // 错误，返回类型不能作为重载依据
+(c) int *reset(int *);
+	double *reset(double *);                // 正确
+```
+
+## 练习 6.40
+> 下面的哪个声明是错误的？为什么？
+
+``` cpp
+(a) int ff(int a, int b = 0, int c = 0);                // 正确
+(b) char *init(int ht = 24, int wd, char bckgrnd);	    // 错误，有默认实参的形参后面都 应该有默认实参
+```
+
+## 练习 6.41
+> 下面的哪个调用是非法的？为什么？哪个调用虽然合法但显然与程序员的初衷不符？为什么？
+
+``` cpp
+char *init(int ht, int wd = 80, char bckgrnd = ' ');
+(a) init();                         // 非法，缺少一个参数值
+(b) init(24,10);                    // 合法: init(24,10,' ')
+(c) init(14,'*');                   // 合法，但是不是所希望的表达,'*'匹配的是wd,会被转成int,给wd，而不是赋值给bckgrnd
+```
+
+## 练习 6.42
+> 给make_plural函数的第二个形参赋予默认实参's', 利用新版本的函数输出单词success和failure的单数和复数形式。
+
+``` cpp
+string make_plural(size_t ctr, const string &word, const string &ending = "s")
+{
+    return (ctr>1)? word + ending : word;
+}
+
+// 输出successs
+make_plural(2,"success")
+```
+
+## 练习 6.43
+> 你会把下面的哪个声明和定义放在头文件中？哪个放在源文件中？为什么？
+
+``` cpp
+(a) inline bool eq(const BigInt&, const BigInt&) {...}  // 内联函数,放到我文件中
+(b) void putValues(int *arr, int size);                 // 声明，也放到头文件中
+```
+
+## 练习 6.44
+> 将6.2.2节(第189页)的isShorter函数改写成内联函数。
+
+``` cpp
+inline bool isShorter(const string &s1, const string &s2)
+{
+    return s1.size() < s2.size();
+}
+```

@@ -321,3 +321,92 @@ inline bool isShorter(const string &s1, const string &s2)
     return s1.size() < s2.size();
 }
 ```
+
+## 练习 6.46
+> 能把isShorter函数定义成constexpr函数吗？如果能，将它改写成constxpre函数；如果不能，说明原因。
+
+``` cpp
+constexpr类型要求返回值和形参都是字面值类型，所以不行
+```
+
+## [练习 6.47](exercise_6.47.cpp)
+
+## 练习 6.48
+> 说明下面这个循环的含义，它对assert的使用合理吗？
+```
+string s;
+while (cin >> s && s != sought) { } //空函数体
+assert(cin);
+```
+
+``` cpp
+合理，当输入结束但没有输入sought时，cin为false则,assert终止程序,如果有输入等于sought,则cin还没结束循环就结束，那么cin为true,不终止程序，在assert下一句补充cout<<true<<endl;就可以实现输入sought就输出true的功能
+```
+
+## 练习 6.49
+> 什么是候选函数？什么是可行函数？
+
+``` cpp
+候选函数：与被调用函数同名，并且其声明在调用点可见。
+可行函数：形参与实参的数量相等，并且每个实参类型与对应的形参类型相同或者能转换成形参的类型。
+```
+
+## 练习 6.50
+> 已知有第217页对函数 f 的声明，对于下面的每一个调用列出可行函数。其中哪个函数是最佳匹配？如果调用不合法，是因为没有可匹配的函数还是因为调用具有二义性？
+
+``` cpp
+(a) f(2.56, 42)                     // 二义性             
+(b) f(42)                           // 最佳匹配f(int)
+(c) f(42, 0)                        // 最佳匹配f(int,int)
+(d) f(2.56, 3.14)                   // 最佳匹配f(double,double)
+```
+
+## [练习 6.51](exercise_6.51.cpp)
+
+## 练习6.52
+> 已知有如下声明：请指出接下来调用中每个类型转换的等级
+```
+void manip(int ,int);
+double dobj;
+```
+
+``` cpp
+(a) manip('a', 'z');                // 第三级
+(b) manip(55.4, dobj);              // 第四级
+```
+
+## 练习 6.53
+> 说明下列每组声明中的第二条语句会产生什么影响，并指出哪些不合法（如果有的话）。
+
+``` cpp
+(a) int calc(int&, int&); 
+	int calc(const int&, const int&);           // ok
+(b) int calc(char*, char*);
+	int calc(const char*, const char*);         // ok   
+(c) int calc(char*, char*);
+	int calc(char* const, char* const);         // 上层const造成二义性
+```
+
+## 练习 6.54
+> 编写函数的声明，令其接受两个int形参并返回类型也是int；然后声明一个vector对象，令其元素是指向该函数的指针。
+
+``` cpp
+int func(int,int);
+vector<decltype(func)*> q;
+```
+
+## 练习 6.55
+> 编写4个函数，分别对两个int值执行加、减、乘、除运算；在上一题创建的vector对象中保存指向这些函数的指针。
+
+``` cpp
+int add(int a,int b);
+int minu(int a,int b);
+int multiply(int a,int b);
+int division(int a,int b);
+q.push_back(add);
+q.push_back(minu);
+q.push_back(multiply);
+q.push_back(division);
+```
+
+## [练习 6.56](exercise_6.56.cpp)

@@ -296,3 +296,82 @@ Sale_data(std::istream &is = std::cin);
 ``` cpp
 不合法，这样默认初始化的时候就不知道调用哪一个了
 ```
+
+## 练习 7.43
+> 假定有一个名为 NoDefault 的类，它有一个接受 int 的构造函数，但是没有默认构造函数。定义类 C，C 有一个 NoDefault 类型的成员，定义C 的默认构造函数。
+
+``` cpp
+class C{
+    C():x(0){}
+    Nodefault x;
+}
+```
+
+## 练习 7.44
+> 下面这条声明合法吗？如果不，为什么？
+```
+vector<NoDefault> vec(10);
+```
+
+``` cpp
+该语句会执行NoDefault的默认构造函数，但是NoDefault没有默认构造函数
+```
+
+## 练习 7.45
+> 如果在上一个练习中定义的vector的元素类型是C，则声明合法吗？为什么？
+
+``` cpp
+合法，因为C有默认构造函数
+```
+
+## 练习 7.46
+> 下面哪些论断是不正确的？为什么？
+
+```
+(a) 一个类必须至少提供一个构造函数。
+(b) 默认构造函数是参数列表为空的构造函数。
+(c) 如果对于类来说不存在有意义的默认值，则类不应该提供默认构造函数。
+(d) 如果类没有定义默认构造函数，则编译器将为其生成一个并把每个数据成员初始化成相应类型的默认值。
+```
+
+``` cpp
+(a) 错误，不提供的话会有合成的默认构造函数
+(b) 不完全正确。为每个参数都提供了默认值的构造函数也是默认构造函数。
+(c) 错误，哪怕没有意义的值也需要初始化。
+(d)  不正确。只有当一个类没有定义任何构造函数的时候，编译器才会生成一个默认构造函数。
+```
+
+## 练习 7.47
+> 说明接受一个string 参数的Sales_data构造函数是否应该是explicit的，并解释这样做的优缺点。
+
+``` cpp
+取决于需要，如果是explicit那么就可抑制隐式，但有时候不是explicit更加方便一点
+```
+
+## 练习 7.48
+> 假定Sales_data 的构造函数不是explicit的，则下述定义将执行什么样的操作？
+```
+string null_isbn("9-999-9999-9");
+Sales_data item1(null_isbn);
+Sales_data item2("9-999-99999-9");
+```
+
+``` cpp
+调用构造函数和是不是explicit没关系
+```
+
+## 练习 7.49 -QUE
+> 对于combine 函数的三种不同声明，当我们调用i.combine(s) 时分别发生什么情况？其中i是一个Sales_data，而 s是一个string对象。
+
+``` cpp
+(a) Sales_data &combine(Sales_data);            // ok: string转Sale_data
+(b) Sales_data &combine(Sales_data&);// error C2664: 无法将参数 1 从“std::string”转换“Sales_data &”
+(c) Sales_data &combine(const Sales_data&) const; //该成员函数是const 的，意味着不能改变对象。而combine函数的本意就是要改变对象
+```
+
+## 练习 7.51
+> vector 将其单参数的构造函数定义成 explicit 的，而string则不是，你觉得原因何在？
+
+``` cpp
+func(vector<int>&)传一个整数，然后转换成vector<int>临时量使用没什么意义，而给func(string)传一个c风格字符串，之后转换成string处理，使得很多地方都能用字符串字面值代替string 
+```

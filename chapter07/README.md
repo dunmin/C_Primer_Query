@@ -373,5 +373,49 @@ Sales_data item2("9-999-99999-9");
 > vector 将其单参数的构造函数定义成 explicit 的，而string则不是，你觉得原因何在？
 
 ``` cpp
-func(vector<int>&)传一个整数，然后转换成vector<int>临时量使用没什么意义，而给func(string)传一个c风格字符串，之后转换成string处理，使得很多地方都能用字符串字面值代替string 
+func(vector<int>&)传一个整数，然后转换成vector<int>临时量使用没什么意义，而给func(string)传一个c风格字符串，之后转换成string处理，使得很多地方都能用字符串字面值代替string  
 ```
+
+## 练习 7.52
+> 解释下面的初始化过程。如果存在问题，尝试修改它。
+```
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold = 0;
+    double revenue = 0.0;
+};
+Sales_data item = {"987-0590353403", 25, 15.99};
+```
+
+``` cpp
+// 有初始值，不是聚合类，应该改成
+struct Sales_data {
+    std::string bookNo;
+    unsigned units_sold;
+    double revenue;
+};
+```
+
+## 练习 7.54
+> Debug中以 set_ 开头的成员应该被声明成 constexpr 吗？如果不，为什么？
+
+``` cpp
+不能。constexpr 函数必须包含一个返回语句。
+```
+
+## 练习 7.55
+> 7.5.5节的 Data 类是字面值常量类吗？请解释原因。
+
+``` cpp
+QUE
+```
+
+## 练习 7.56
+> 什么是类的静态成员？它有何优点？静态成员与普通成员有何区别？
+
+``` cpp
+与类本身相关，而不是与类的各个对象相关的成员是静态成员。静态成员能用于某些场景，而普通成员不能。
+```
+
+## 练习 7.58 - Que
+> 下面的静态数据成员的声明和定义有错误吗？请解释原因。

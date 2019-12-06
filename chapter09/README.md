@@ -225,3 +225,121 @@ while (iter != mid)
 
 ## [练习 9.24](exercise_9.24.cpp)
 > 编写程序，分别使用 at、下标运算符、front 和 begin 提取一个vector中的第一个元素。在一个空vector上测试你的程序。
+
+## 练习 9.25
+> 对于第312页中删除一个范围内的元素的程序，如果```elem1```与```elem2```相等会发生什么？如果```elem2```是尾后迭代器，或者```elem1```和```elem2```皆为尾后迭代器，又会发生什么？
+
+``` cpp
+(1)如果elem1和elem2相等，那么不会发生任何操作
+(2)如果elem2 是尾后迭代器，那么删除从elem1到最后的元素
+(3)如果两者皆为尾后迭代器，也什么都不会发生
+```
+
+## [练习 9.26](exercise_9.26.cpp)
+> 使用下面代码定义的ia，将ia 拷贝到一个vector和一个list中。是用单迭代器版本的erase从list中删除奇数元素，从vector中删除偶数元素。
+
+## [练习 9.27](exercise_9.27.cpp)
+> 编写程序，查找并删除forward_list中的奇数元素。
+
+## 练习 9.29
+> 假定vec包含25个元素，那么vec.resize(100)会做什么？如果接下来调用vec.resize(10)会做什么？
+```
+vec.resize(100)：将75个值为0(默认初始化值)的元素添加到vec的末尾
+vec.resize(10)：从vec的末尾删除90个元素
+```
+
+## 练习 9.30
+> 接受单个参数的resize版本对元素类型有什么限制（如果有的话）？
+
+```
+元素类型必须提供一个默认构造函数。
+```
+
+## 练习 9.31 -important
+> 第316页中删除偶数值元素并复制奇数值元素的程序不能用于list或forward_list。为什么？修改程序，使之也能用于这些类型。
+
+```cpp
+复合赋值语句只能用于string、vector、deque、array
+iter+=2 修改为 iter++
+如果是forward_list还需要一个prev
+```
+
+## 练习 9.32 -important
+> 在第316页的程序中，向下面语句这样调用insert是否合法？如果不合法，为什么？
+
+``` cpp
+iter = vi.insert(iter, *iter++);            // 不合法,因为参数的求值顺序是未定的
+```
+
+## 练习 9.33
+> 在本节最后一个例子中，如果不将insert的结果赋予begin，将会发生什么？编写程序，去掉此赋值语句，验证你的答案。
+
+```cpp
+begin会失效，程序死循环
+```
+
+## 练习 9.34
+> 假定vi是一个保存int的容器，其中有偶数值也有奇数值，分析下面循环的行为，然后编写程序验证你的分析是否正确。
+```
+iter = vi.begin();
+while (iter != vi.end())
+	if (*iter % 2)
+		iter = vi.insert(iter, *iter);
+	++iter;
+```
+
+``` cpp
+程序对每一个奇数前添加一个这个奇数的副本，之后iter指向新增的副本，这种情况迭代器递增之后还是指向该奇数，因此进入死循环。
+```
+
+## 练习 9.35
+> 解释一个vector的capacity和size有何区别。
+
+``` cpp
+容器的size是指已经保存的元素的数目，
+capacity则是在不分配新内存的情况下最多可以保存多少元素
+```
+
+## 练习 9.36
+> 一个容器的capacity可能小于它的size吗？
+
+``` cpp
+不可能
+```
+
+## 练习 9.37
+> 为什么list或array没有capacity成员函数？
+
+``` cpp
+list是链表，不需要存储在连续空间，为新元素单独开一个空间即可
+array不允许该变容器大小
+```
+
+## 练习 9.39
+> 解释下面程序片段做了什么：
+```
+vector<string> svec;
+svec.reserve(1024);
+string word;
+while (cin >> word)
+	svec.push_back(word);
+svec.resize(svec.size() + svec.size() / 2);
+```
+
+``` cpp
+(a) 创建一个空的vector<string>
+(b) 将容器的capacity扩大至1024
+(c) 输入多个word存储到svec中
+(d) 将svec的元素个数调整为原来大概1.5倍，即后面补上一半元素个数的空string
+(e) 如果元素个数超出了capacity，则还会自动扩大capacity
+```
+
+## 练习 9.40
+> 如果上一题的程序读入了256个词，在resize之后容器的capacity可能是多少？如果读入了512个、1000个、或1048个呢？
+
+``` cpp
+(a) 256：1024
+(b) 512: 1024
+(c) 1000: 2048 (假定规模翻倍的话)
+(d) 1048: 2048 (假定规模翻倍的话)
+```

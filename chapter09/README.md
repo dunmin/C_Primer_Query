@@ -343,3 +343,41 @@ svec.resize(svec.size() + svec.size() / 2);
 (c) 1000: 2048 (假定规模翻倍的话)
 (d) 1048: 2048 (假定规模翻倍的话)
 ```
+
+## 练习 9.41
+> 编写程序，从一个vector<char>初始化一个string
+
+``` cpp
+vector<char> v{ 'h', 'e', 'l', 'l', 'o' };
+string str(v.cbegin(), v.cend());
+```
+
+## 练习 9.42 -important
+> 假定你希望每次读取一个字符存入一个string中，而且知道最少需要读取100个字符，应该如何提高程序的性能？
+
+``` cpp
+使用 reserve(100) 函数预先分配100个元素的空间。
+```
+
+## [练习 9.43](exercise_9.43.cpp)
+> 编写一个函数，接受三个string参数是s、oldVal 和newVal。使用迭代器及insert和erase函数将s中所有oldVal替换为newVal。测试你的程序，用它替换通用的简写形式，如，将"tho"替换为"though",将"thru"替换为"through"。
+
+## 练习 9.44
+> 重写上一题的函数，这次使用一个下标和replace。
+``` cpp
+// 上一题的s.erase()和s.insert()换成：
+s.replace(curr, curr+old_val.size(),new_val.begin(), new_val.end());
+```
+
+## [练习 9.47](exercise_9.47.cpp)
+> 编写程序，首先查找string"ab2c3d7R4E6"中每个数字字符，然后查找其中每个字母字符。编写两个版本的程序，第一个要使用find_first_of，第二个要使用find_first_not_of。
+
+## 练习 9.48
+> 假定```name```和```numbers```的定义如325页所示，```numbers.find(name)```返回什么？
+
+``` cpp
+string::npos
+```
+
+## [练习 9.50](exercise_9.50.cpp)
+> 编写程序处理一个vector，其元素都表示整型值。计算vector中所有元素之和。修改程序，使之计算表示浮点值的string之和
